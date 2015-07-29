@@ -1,0 +1,27 @@
+<md-content>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Settings">
+                <md-icon md-font-set="material-icons">
+                    apps
+                </md-icon>
+            </md-button>
+            <h2>
+                <span>Cloud robot control</span>
+            </h2>
+        </div>
+    </md-toolbar>
+</md-content>
+<div ng-include="'src/components/telemetry/views/telemetry.html'">
+
+</div>
+
+<div ng-include="'src/components/navigation/views/navigation.html'">
+
+</div>
+<md-button class="md-fab connect-btn" ng-class="{'green-btn':isConnected && isRobotConnected, 'md-accent':!isConnected}"
+           aria-label="Connect to server">
+    <md-icon md-font-set="material-icons">
+        power_settings_new
+    </md-icon>
+</md-button>
