@@ -28,7 +28,6 @@ angular.module("RobotControl").service("webSocketService", ["protoConfig", "serv
                 throw Error("Not supported event type " + event);
             }
             _socketServer.emit(event, buffer);
-            console.log("Sent", data);
         } else {
             console.log("Client not connected");
         }
@@ -90,7 +89,8 @@ angular.module("RobotControl").service("webSocketService", ["protoConfig", "serv
 
         _emitter.addListener(event, handler);
         _socketServer.on(event, function (arrayBuffer) {
-            _emitter.emitEvent(event, protoBufService.decode(protoConfig[event], arrayBuffer));
+            var data = protoBufService.decode(protoConfig[event], arrayBuffer);
+            _emitter.emitEvent(event, data);
         });
     }
 }]);

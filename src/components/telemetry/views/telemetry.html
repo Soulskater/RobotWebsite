@@ -4,6 +4,17 @@
     </div>
 
     <div class="block-content">
-
+        <div ng-show="isConnected && isRobotConnected">
+            <span class="md-body-1">Roll {{telemetry.roll}}</span>
+            <br>
+            <span class="md-body-1">Pitch {{telemetry.pitch}}</span>
+            <br>
+            <span class="md-body-1">Heading {{telemetry.heading}}</span>
+            <br>
+            <span class="md-body-1">Distance {{telemetry.distance}}</span>
+        </div>
+        <div ng-show="!isConnected || !isRobotConnected" class="text-center">
+            <span class="md-subhead">Not available</span>
+        </div>
     </div>
 </div>

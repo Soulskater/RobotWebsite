@@ -7,8 +7,12 @@ angular.module("RobotControl").controller("navigationCtrl", ["$scope", "webSocke
         onBackward: _onBackward,
         onLeft: _onLeft,
         onRight: _onRight,
-        onStop: _onStop
+        onStop: _onStop,
+        onKeydownHandler: _onKeydownHandler,
+        onKeyupHandler: _onKeyupHandler
     });
+
+    var _keyReleased = true;
 
     _init();
     function _init() {
@@ -65,5 +69,37 @@ angular.module("RobotControl").controller("navigationCtrl", ["$scope", "webSocke
             name: "move",
             subCommand: "none"
         });
+    }
+
+    function _onKeydownHandler($event) {
+        if (!$scope.isConnected || !_keyReleased) {
+            return;
+        }
+        switch ($event.keyCode) {
+            case 37:
+                _onLeft();
+                _keyReleased = false;
+                break;
+            case 38:
+                _onForward();
+                _keyReleased = false;
+                break;
+            case 39:
+                _onRight();
+                _keyReleased = false;
+                break;
+            case 40:
+                _onBackward();
+                _keyReleased = false;
+                break;
+        }
+    }
+
+    function _onKeyupHandler() {
+        if (!$scope.isConnected) {
+            return;
+        }
+        _onStop();
+        _keyReleased = true;
     }
 }]);

@@ -1,6 +1,6 @@
-angular.module("RobotControl").controller("telemetryCtrl", ["$scope", "webSocketService", "eventEnum", function ($scope, webSocketService, eventEnum) {
+angular.module("RobotControl").controller("telemetryCtrl", function ($scope, webSocketService, eventEnum, $interval) {
     angular.extend($scope, {
-        distance: 30,
+        telemetry: {},
         isConnected: false,
         isRobotConnected: false
     });
@@ -24,6 +24,16 @@ angular.module("RobotControl").controller("telemetryCtrl", ["$scope", "webSocket
             webSocketService.onClientDisconnected(function () {
                 $scope.isRobotConnected = false;
             });
+
+            webSocketService.onCustomEvent(eventEnum.telemetry, function (data) {
+                $scope.telemetry = data;
+            });
+
+            $interval(function () {
+                webSocketService.emit(eventEnum.command, {
+                    name: "telemetry"
+                });
+            }, 1000);
         }
     }
-}]);
+});

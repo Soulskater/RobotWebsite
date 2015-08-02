@@ -10,3 +10,6 @@
   line-height: 45px;
   padding: 5px 15px;
 }
+.block-container .block-content {
+  padding: 15px;
+}

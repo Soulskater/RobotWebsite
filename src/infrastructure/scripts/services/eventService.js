@@ -16,7 +16,7 @@ angular.module("RobotControl").service("eventService", function ($rootScope) {
         };
 
         self.emitEvent = function (event, data) {
-            _emitter.emitEvent.apply(_emitter, arguments);
+            _emitter.emitEvent.apply(_emitter, [event, [data]]);
         }
     }
 });
